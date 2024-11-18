@@ -6,11 +6,14 @@ import org.junit.jupiter.api.Test;
 public class TriangleTests {
     @Test
     void canCalculatePerimeter(){
-        Assertions.assertEquals(12, TriangleMethods.TrianglePerimeter(3, 4, 5));
+        var P = new TriangleMethods(3.0, 4.0, 5.0);
+        Assertions.assertEquals(12.0, P.Perimeter());
     }
+
+
 
     @Test
     void canCalculateArea(){
-        Assertions.assertEquals(6, TriangleMethods.TriangleArea(3, 4, 5));
+        Assertions.assertEquals(6.0, new TriangleMethods(3.0, 4.0, 5.0).Area());
     }
 }

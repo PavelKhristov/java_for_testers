@@ -1,21 +1,35 @@
 package ru.stqa.triangle.methods;
 
 public class TriangleMethods {
-    public static void printTrianglePerimeter(double a, double b, double c){
-        var text = String.format("Периметр треугольника со сторонами %f, %f и %f = %f", a, b, c, TrianglePerimeter(a, b, c));
+
+    private double a;
+    private double b;
+    private double c;
+
+    public TriangleMethods(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+
+    public static void printTrianglePerimeter(TriangleMethods p){
+        var text = String.format("Периметр треугольника со сторонами %f, %f и %f = %f", p.a, p.b, p.c, p.Perimeter());
         System.out.println(text);
     }
 
-    public static double TrianglePerimeter(double a, double b, double c) {
-        return a + b + c;
+
+    public static void printTriangleArea(TriangleMethods s){
+        System.out.println("Площадь треугольника со сторонами " + s.a + ", " + s.b + " и " + s.c + " = " + s.Area());
     }
 
-    public static void printTriangleArea(double a, double b, double c){
-        System.out.println("Площадь треугольника со сторонами " + a + ", " + b + " и " + c + " = " + TriangleArea(a, b, c));
+
+    public double Perimeter() {
+        return this.a + this.b + this.c;
     }
 
-    public static double TriangleArea(double a, double b, double c) {
-        var P = TrianglePerimeter(a, b, c) / 2;
-        return Math.sqrt(P*(P-a)*(P-b)*(P-c));
+    public double Area() {
+        var Per = Perimeter() / 2;
+        return Math.sqrt(Per*(Per-this.a)*(Per-this.b)*(Per-this.c));
     }
 }
