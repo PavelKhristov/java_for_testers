@@ -1,25 +1,25 @@
 package ru.stqa.triangle.methods;
 
-public class TriangleMethods {
+public class Triangle {
 
     private double a;
     private double b;
     private double c;
 
-    public TriangleMethods(double a, double b, double c) {
+    public Triangle(double a, double b, double c) {
         this.a = a;
         this.b = b;
         this.c = c;
     }
 
 
-    public static void printTrianglePerimeter(TriangleMethods p){
+    public static void printTrianglePerimeter(Triangle p){
         var text = String.format("Периметр треугольника со сторонами %f, %f и %f = %f", p.a, p.b, p.c, p.Perimeter());
         System.out.println(text);
     }
 
 
-    public static void printTriangleArea(TriangleMethods s){
+    public static void printTriangleArea(Triangle s){
         System.out.println("Площадь треугольника со сторонами " + s.a + ", " + s.b + " и " + s.c + " = " + s.Area());
     }
 
