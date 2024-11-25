@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: net.bytebuddy:byte-buddy:1.15.7" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.bytebuddy" artifactId="byte-buddy" version="1.15.7" />
+    <CLASSES>
+      <root url="jar://C:/gradlehome/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.15.7/658064662e33b045bb9499b1c8afeae656974b18/byte-buddy-1.15.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
