@@ -5,14 +5,16 @@ import org.openqa.selenium.By;
 
 public class GroupHelper {
     public final ApplicationManager manager;
-
     public GroupHelper (ApplicationManager manager){
         this.manager = manager;
     }
 
+    /*public final BaseHelper base;
+    public GroupHelper (BaseHelper base){
+        this.base = base;*/
+
 
     /*private BaseHelper base;
-
     public BaseHelper base () {
         if (base == null){
             base = new BaseHelper(this);

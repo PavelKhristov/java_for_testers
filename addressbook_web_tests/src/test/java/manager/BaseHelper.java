@@ -3,8 +3,21 @@ package manager;
 import org.openqa.selenium.By;
 
 public class BaseHelper {
-    /*public final GroupHelper groupmanager;
+    /*public final ApplicationManager manager;
+    public GroupHelper (ApplicationManager manager){
+        this.manager = manager;
 
+    private GroupHelper groups;
+    public GroupHelper groups () {
+        if (groups == null){
+            groups = new GroupHelper(this);
+        }
+        return groups;
+    }*/
+
+
+
+    /*public final GroupHelper groupmanager;
     public BaseHelper(GroupHelper groupmanager) {
         this.groupmanager = groupmanager;
     }

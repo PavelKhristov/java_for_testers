@@ -5,12 +5,12 @@ import org.openqa.selenium.By;
 
 public class ContactHelper {
     public final ApplicationManager manager;
-
     public ContactHelper(ApplicationManager manager) {
         this.manager = manager;
     }
-    /*private BaseHelper base;
 
+
+    /*private BaseHelper base;
     public BaseHelper base () {
         if (base == null){
             base = new BaseHelper(this);
