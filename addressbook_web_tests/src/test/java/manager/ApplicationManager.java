@@ -1,16 +1,16 @@
+package manager;
+
 import model.GroupData;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestBase {
-    protected WebDriver driver;
+public class ApplicationManager {
+    protected static WebDriver driver;
 
-    @BeforeEach
-    public void setUp() {
+    public void init() {
         if (driver == null) {
             driver = new FirefoxDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
@@ -31,7 +31,7 @@ public class TestBase {
         }
     }
 
-    protected void CreateGroup(GroupData group) {
+    public void CreateGroup(GroupData group) {
         driver.findElement(By.name("new")).click();
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).sendKeys(group.name());
@@ -43,17 +43,17 @@ public class TestBase {
         driver.findElement(By.linkText("group page")).click();
     }
 
-    protected void OpenGroupPage() {
+    public void OpenGroupPage() {
         if (!isElementPresent(By.name("new"))){
             driver.findElement(By.linkText("groups")).click();
         }
     }
 
-    protected boolean IsGroupPresent() {
+    public boolean IsGroupPresent() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected void DeleteGroup() {
+    public void DeleteGroup() {
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("group page")).click();
