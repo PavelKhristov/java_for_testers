@@ -6,52 +6,67 @@ import org.openqa.selenium.By;
 public class GroupHelper {
     public final ApplicationManager manager;
 
-    private BaseHelper base;
+    public GroupHelper (ApplicationManager manager){
+        this.manager = manager;
+    }
+
+
+    /*private BaseHelper base;
 
     public BaseHelper base () {
         if (base == null){
             base = new BaseHelper(this);
         }
         return base;
-    }
-
-
-
-    public GroupHelper (ApplicationManager manager){
-        this.manager = manager;
-    }
+    }*/
 
     public void OpenGroupPage() {
-        if (!manager.isElementPresent(By.name("new"))){
-            base().ClickLink("groups");
+        if (!isPesent("new")){
+            ClickLink("groups");
         }
     }
 
     public void CreateGroup(GroupData group) {
         OpenGroupPage();
-        base().ClickButton("new");
-        base().ClickButton("group_name");
-        base().FillFieldByValue("group_name", group.name());
-        base().ClickButton("group_header");
-        base().FillFieldByValue("group_header", group.header());
-        base().ClickButton("group_footer");
-        base().FillFieldByValue("group_footer", group.footer());
-        base().ClickButton("submit");
-        base().ClickLink("group page");
+        ClickButton("new");
+        ClickButton("group_name");
+        FillInTheFieldByValue("group_name", group.name());
+        ClickButton("group_header");
+        FillInTheFieldByValue("group_header", group.header());
+        ClickButton("group_footer");
+        FillInTheFieldByValue("group_footer", group.footer());
+        ClickButton("submit");
+        ClickLink("group page");
     }
 
 
 
     public boolean IsGroupPresent() {
         OpenGroupPage();
-        return manager.isElementPresent(By.name("selected[]"));
+        return isPesent("selected[]");
     }
 
     public void DeleteGroup() {
         OpenGroupPage();
-        base().ClickButton("selected[]");
-        base().ClickButton("delete");
-        base().ClickLink("group page");
+        ClickButton("selected[]");
+        ClickButton("delete");
+        ClickLink("group page");
+    }
+
+    public void ClickButton(String button) {
+        manager.driver.findElement(By.name(button)).click();
+    }
+
+    void ClickLink(String link) {
+        manager.driver.findElement(By.linkText(link)).click();
+    }
+
+    void FillInTheFieldByValue(String fieldName, String field) {
+        manager.driver.findElement(By.name(fieldName)).sendKeys(field);
+    }
+
+    private boolean isPesent(String elementName) {
+        return manager.isElementPresent(By.name(elementName));
     }
 
 }

@@ -6,12 +6,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+
 public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
-
-
+    private ContactHelper contacts;
+    private BaseHelper base;
 
 
     public void init() {
@@ -38,6 +39,12 @@ public class ApplicationManager {
         return groups;
     }
 
+    public ContactHelper contacts () {
+        if (contacts == null){
+            contacts = new ContactHelper(this);
+        }
+        return contacts;
+    }
 
 
 
