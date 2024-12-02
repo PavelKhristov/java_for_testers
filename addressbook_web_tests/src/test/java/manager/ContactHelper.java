@@ -3,99 +3,62 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
-public class ContactHelper {
-    public final ApplicationManager manager;
+public class ContactHelper extends BaseHelper {
     public ContactHelper(ApplicationManager manager) {
-        this.manager = manager;
+        super(manager);
     }
 
-
-    /*private BaseHelper base;
-    public BaseHelper base () {
-        if (base == null){
-            base = new BaseHelper(this);
-        }
-        return base;
-    }*/
-
     public void OpenHomePage() {
-        if (!isPesent("searchstring")){
-            ClickLink("home");
+        if (!manager.isElementPresent(By.name("searchstring"))){
+            сlick(By.linkText("home"));
         }
     }
 
     public void OpenContactCreationPage() {
-        if (!isPesent("submit")){
-            ClickLink("add new");
+        if (!manager.isElementPresent(By.name("submit"))){
+            сlick(By.linkText("add new"));
         }
     }
 
-
-
     public void createContact(ContactData contact) {
         OpenContactCreationPage();
-        FillInTheFieldByValue("firstname", contact.firstName());
+        type(By.name("firstname"), contact.firstName());
         //manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstName())
-        FillInTheFieldByValue("middlename", contact.middleName());
-        FillInTheFieldByValue("lastname", contact.lastName());
-        FillInTheFieldByValue("nickname", contact.nickName());
-        FillInTheFieldByValue("title", contact.title());
-        FillInTheFieldByValue("company", contact.company());
-        FillInTheFieldByValue("address", contact.address());
-        FillInTheFieldByValue("home", contact.homePhone());
-        FillInTheFieldByValue("mobile", contact.mobilephone());
-        FillInTheFieldByValue("work", contact.workPhone());
-        FillInTheFieldByValue("fax", contact.Fax());
-        FillInTheFieldByValue("email", contact.e_mail());
-        FillInTheFieldByValue("email2", contact.e_mail2());
-        FillInTheFieldByValue("email3", contact.e_mail3());
-        FillInTheFieldByValue("homepage", contact.homePage());
-        FillInTheFieldByValue("bday", contact.bDay());
-        FillInTheFieldByValue("bmonth", contact.bMonth());
-        FillInTheFieldByValue("byear", contact.bYear());
-        FillInTheFieldByValue("aday", contact.aDay());
-        FillInTheFieldByValue("amonth", contact.aMonth());
-        FillInTheFieldByValue("ayear", contact.aYear());
-        FillInTheFieldByValue("new_group", contact.newGroup());
-        ClickButton("submit");
-        ClickLink("home page");
+        type(By.name("middlename"), contact.middleName());
+        type(By.name("lastname"), contact.lastName());
+        type(By.name("nickname"), contact.nickName());
+        type(By.name("title"), contact.title());
+        type(By.name("company"), contact.company());
+        type(By.name("address"), contact.address());
+        type(By.name("home"), contact.homePhone());
+        type(By.name("mobile"), contact.mobilephone());
+        type(By.name("work"), contact.workPhone());
+        type(By.name("fax"), contact.Fax());
+        type(By.name("email"), contact.e_mail());
+        type(By.name("email2"), contact.e_mail2());
+        type(By.name("email3"), contact.e_mail3());
+        type(By.name("homepage"), contact.homePage());
+        type(By.name("bday"), contact.bDay());
+        type(By.name("bmonth"), contact.bMonth());
+        type(By.name("byear"), contact.bYear());
+        type(By.name("aday"), contact.aDay());
+        type(By.name("amonth"), contact.aMonth());
+        type(By.name("ayear"), contact.aYear());
+        type(By.name("new_group"), contact.newGroup());
+        сlick(By.name("submit"));
+        сlick(By.linkText("home page"));
        // manager.driver.findElement(By.name("submit")).click();
         //manager.driver.findElement(By.linkText("home page")).click();
     }
 
     public void DeleteContact() {
         OpenHomePage();
-        ClickButton("selected[]");
-        ClickByXpath("//input[@value=\'Delete\']");
+        сlick(By.name("selected[]"));
+        сlick(By.xpath("//input[@value=\'Delete\']"));
     }
 
     public boolean IsContactPresent() {
         OpenHomePage();
-        return isPesent("selected[]");
+        return manager.isElementPresent(By.name("selected[]"));
     }
-    
-    
-    
-
-
-    public void ClickButton(String button) {
-        manager.driver.findElement(By.name(button)).click();
-    }
-
-    void ClickLink(String link) {
-        manager.driver.findElement(By.linkText(link)).click();
-    }
-
-    void FillInTheFieldByValue(String fieldName, String field) {
-        manager.driver.findElement(By.name(fieldName)).sendKeys(field);
-    }
-
-    private void ClickByXpath(String xPath) {
-        manager.driver.findElement(By.xpath(xPath)).click();
-    }
-
-    private boolean isPesent(String elementName) {
-        return manager.isElementPresent(By.name(elementName));
-    }
-
 }
