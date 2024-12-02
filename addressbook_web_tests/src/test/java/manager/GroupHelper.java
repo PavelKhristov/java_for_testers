@@ -4,7 +4,7 @@ import model.GroupData;
 import org.openqa.selenium.By;
 
 public class GroupHelper {
-    private final ApplicationManager manager;
+    public final ApplicationManager manager;
 
     private BaseHelper base;
 
@@ -23,21 +23,21 @@ public class GroupHelper {
 
     public void OpenGroupPage() {
         if (!manager.isElementPresent(By.name("new"))){
-            ClickLink("groups");
+            base().ClickLink("groups");
         }
     }
 
     public void CreateGroup(GroupData group) {
         OpenGroupPage();
-        ClickButton("new");
-        ClickButton("group_name");
-        FillFieldByValue("group_name", group.name());
-        ClickButton("group_header");
-        FillFieldByValue("group_header", group.header());
-        ClickButton("group_footer");
-        FillFieldByValue("group_footer", group.footer());
-        ClickButton("submit");
-        ClickLink("group page");
+        base().ClickButton("new");
+        base().ClickButton("group_name");
+        base().FillFieldByValue("group_name", group.name());
+        base().ClickButton("group_header");
+        base().FillFieldByValue("group_header", group.header());
+        base().ClickButton("group_footer");
+        base().FillFieldByValue("group_footer", group.footer());
+        base().ClickButton("submit");
+        base().ClickLink("group page");
     }
 
 
@@ -49,20 +49,9 @@ public class GroupHelper {
 
     public void DeleteGroup() {
         OpenGroupPage();
-        ClickButton("selected[]");
-        ClickButton("delete");
-        ClickLink("group page");
+        base().ClickButton("selected[]");
+        base().ClickButton("delete");
+        base().ClickLink("group page");
     }
 
-    public void ClickButton(String button) {
-        manager.driver.findElement(By.name(button)).click();
-    }
-
-    private void ClickLink(String link) {
-        manager.driver.findElement(By.linkText(link)).click();
-    }
-
-    private void FillFieldByValue(String group_name, String group) {
-        manager.driver.findElement(By.name(group_name)).sendKeys(group);
-    }
 }
