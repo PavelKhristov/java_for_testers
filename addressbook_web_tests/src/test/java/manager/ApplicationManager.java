@@ -11,6 +11,9 @@ public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
 
+
+
+
     public void init() {
         if (driver == null) {
             driver = new FirefoxDriver();
@@ -34,6 +37,9 @@ public class ApplicationManager {
         }
         return groups;
     }
+
+
+
 
     protected boolean isElementPresent(By locator) {
         try {
