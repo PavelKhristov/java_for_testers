@@ -9,14 +9,14 @@ public class GroupHelper extends BaseHelper{
     }
 
 
-    public void OpenGroupPage() {
+    public void openGroupPage() {
         if (!manager.isElementPresent(By.name("new"))){
             сlick(By.linkText("groups"));
         }
     }
 
-    public void CreateGroup(GroupData group) {
-        OpenGroupPage();
+    public void createGroup(GroupData group) {
+        openGroupPage();
         сlick(By.name("new"));
         сlick(By.name("group_name"));
         type(By.name("group_name"), group.name());
@@ -28,13 +28,13 @@ public class GroupHelper extends BaseHelper{
         сlick(By.linkText("group page"));
     }
 
-    public boolean IsGroupPresent() {
-        OpenGroupPage();
+    public boolean isGroupPresent() {
+        openGroupPage();
         return manager.isElementPresent(By.name("selected[]"));
     }
 
-    public void DeleteGroup() {
-        OpenGroupPage();
+    public void deleteGroup() {
+        openGroupPage();
         сlick(By.name("selected[]"));
         сlick(By.name("delete"));
         сlick(By.linkText("group page"));

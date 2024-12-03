@@ -12,7 +12,6 @@ public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
     private ContactHelper contacts;
-    //private BaseHelper base;
 
 
     public void init() {
@@ -45,14 +44,6 @@ public class ApplicationManager {
         }
         return contacts;
     }
-
-    /*public BaseHelper base () {
-        if (base == null){
-            base = new BaseHelper(this);
-        }
-        return base;
-    }*/
-
 
     protected boolean isElementPresent(By locator) {
         try {

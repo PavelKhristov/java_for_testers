@@ -8,20 +8,20 @@ public class ContactHelper extends BaseHelper {
         super(manager);
     }
 
-    public void OpenHomePage() {
+    public void openHomePage() {
         if (!manager.isElementPresent(By.name("searchstring"))){
             сlick(By.linkText("home"));
         }
     }
 
-    public void OpenContactCreationPage() {
+    public void openContactCreationPage() {
         if (!manager.isElementPresent(By.name("submit"))){
             сlick(By.linkText("add new"));
         }
     }
 
     public void createContact(ContactData contact) {
-        OpenContactCreationPage();
+        openContactCreationPage();
         type(By.name("firstname"), contact.firstName());
         //manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstName())
         type(By.name("middlename"), contact.middleName());
@@ -51,14 +51,14 @@ public class ContactHelper extends BaseHelper {
         //manager.driver.findElement(By.linkText("home page")).click();
     }
 
-    public void DeleteContact() {
-        OpenHomePage();
+    public void deleteContact() {
+        openHomePage();
         сlick(By.name("selected[]"));
         сlick(By.xpath("//input[@value=\'Delete\']"));
     }
 
-    public boolean IsContactPresent() {
-        OpenHomePage();
+    public boolean isContactPresent() {
+        openHomePage();
         return manager.isElementPresent(By.name("selected[]"));
     }
 }
