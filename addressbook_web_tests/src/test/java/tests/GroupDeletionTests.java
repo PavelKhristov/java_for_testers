@@ -16,17 +16,17 @@ public class GroupDeletionTests extends TestBase {
             app.groups().createGroup(new GroupData("New group", "New header", "New footer"));
         }
         int groupCounts = app.groups().getCount();
-        app.groups().deleteGroups();
+        app.groups().removeGroup();
         int newGroupCounts = app.groups().getCount();
         Assertions.assertEquals(groupCounts - 1, newGroupCounts);
     }
 
     @Test
-    void canDeleteAllGroupsAtOnce() {
+    void canRemoveAllGroupsAtOnce() {
         if (app.groups().getCount() == 0) {
             app.groups().createGroup(new GroupData("New group", "New header", "New footer"));
         }
-        app.groups().DeletionAllGroups();
+        app.groups().RemovalAllGroups();
         Assertions.assertEquals(0, app.groups().getCount());
     }
 

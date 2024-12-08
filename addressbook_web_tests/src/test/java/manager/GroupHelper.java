@@ -17,37 +17,60 @@ public class GroupHelper extends BaseHelper{
 
     public void createGroup(GroupData group) {
         openGroupPage();
-        сlick(By.name("new"));
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToGroupsPage();
+    }
+
+    private void fillGroupForm(GroupData group) {
         сlick(By.name("group_name"));
         type(By.name("group_name"), group.name());
         сlick(By.name("group_header"));
         type(By.name("group_header"), group.header());
         сlick(By.name("group_footer"));
         type(By.name("group_footer"), group.footer());
+    }
+
+    private void returnToGroupsPage() {
+        сlick(By.linkText("group page"));
+    }
+
+    private void submitGroupCreation() {
         сlick(By.name("submit"));
-        сlick(By.linkText("group page"));
+    }
+
+    private void initGroupCreation() {
+        сlick(By.name("new"));
     }
 
 
-
-    public void deleteGroups() {
+    public void removeGroup() {
         openGroupPage();
-        сlick(By.name("selected[]"));
-        сlick(By.name("delete"));
-        сlick(By.linkText("group page"));
+        selectGroup();
+        removeSelectedGroups();
+        returnToGroupsPage();
     }
+
+    private void removeSelectedGroups() {
+        сlick(By.name("delete"));
+    }
+
+    private void selectGroup() {
+        сlick(By.name("selected[]"));
+    }
+
+
 
     public int getCount() {
         openGroupPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }
 
-
-
-    public void DeletionAllGroups() {
+    public void RemovalAllGroups() {
         openGroupPage();
         selectAllGroups();
-        deleteGroups();
+        removeSelectedGroups();
     }
 
     private void selectAllGroups() {

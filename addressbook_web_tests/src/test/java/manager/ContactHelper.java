@@ -53,12 +53,38 @@ public class ContactHelper extends BaseHelper {
 
     public void deleteContact() {
         openHomePage();
-        сlick(By.name("selected[]"));
+        selectContact();
+        removeSelectedContacts();
+    }
+
+    private void removeSelectedContacts() {
         сlick(By.xpath("//input[@value=\'Delete\']"));
+    }
+
+    private void selectContact() {
+        сlick(By.name("selected[]"));
     }
 
     public boolean isContactPresent() {
         openHomePage();
         return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    public int getCount() {
+        openHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public void RemovalAllContacts() {
+        openHomePage();
+        selectAllContacts();
+        removeSelectedContacts();
+    }
+
+    private void selectAllContacts() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes){
+            checkbox.click();
+        }
     }
 }
