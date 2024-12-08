@@ -28,15 +28,39 @@ public class GroupHelper extends BaseHelper{
         сlick(By.linkText("group page"));
     }
 
-    public boolean isGroupPresent() {
-        openGroupPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
 
-    public void deleteGroup() {
+
+    public void deleteGroups() {
         openGroupPage();
         сlick(By.name("selected[]"));
         сlick(By.name("delete"));
         сlick(By.linkText("group page"));
     }
+
+    public int getCount() {
+        openGroupPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+
+
+    public void DeletionAllGroups() {
+        openGroupPage();
+        selectAllGroups();
+        deleteGroups();
+    }
+
+    private void selectAllGroups() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes){
+            checkbox.click();
+        }
+    }
+
+
+    /*Метод проверяет наличие чекбокса (метод уже не используется и находится в AppliationManager)
+    public boolean isGroupPresent() {
+        openGroupPage();
+        return manager.isElementPresent(By.name("selected[]"));
+    }*/
 }
