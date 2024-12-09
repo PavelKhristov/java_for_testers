@@ -8,26 +8,26 @@ public class GroupDeletionTests extends TestBase {
 
     @Test
     public void canDeleteGroup() {
-        /*  Вариант с проверкой существования группы
-        if (!app.groups().isGroupPresent()) {*/
+        //  Вариант с проверкой существования группы
+        //if (!app.groups().isGroupPresent()) {
 
         //Вариант с проверкой существования заданного количества групп
-        if (app.groups().getCount() == 0) {
+        if (app.groups().getCountGroups() == 0) {
             app.groups().createGroup(new GroupData("New group", "New header", "New footer"));
         }
-        int groupCounts = app.groups().getCount();
+        int groupCounts = app.groups().getCountGroups();
         app.groups().removeGroup();
-        int newGroupCounts = app.groups().getCount();
+        int newGroupCounts = app.groups().getCountGroups();
         Assertions.assertEquals(groupCounts - 1, newGroupCounts);
     }
 
     @Test
     void canRemoveAllGroupsAtOnce() {
-        if (app.groups().getCount() == 0) {
+        if (app.groups().getCountGroups() == 0) {
             app.groups().createGroup(new GroupData("New group", "New header", "New footer"));
         }
         app.groups().RemovalAllGroups();
-        Assertions.assertEquals(0, app.groups().getCount());
+        Assertions.assertEquals(0, app.groups().getCountGroups());
     }
 
 }

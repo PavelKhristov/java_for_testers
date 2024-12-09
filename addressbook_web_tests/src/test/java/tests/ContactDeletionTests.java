@@ -1,7 +1,6 @@
 package tests;
 
 import model.ContactData;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +18,11 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     void canRemoveAllContactsAtOnce() {
-        if (app.contacts().getCount() == 0) {
+        if (app.contacts().getCountContacts() == 0) {
             app.contacts().createContact(new ContactData().withFirstNameAndLastName("firstname", "lastname"));
         }
         app.contacts().RemovalAllContacts();
-        Assertions.assertEquals(0, app.contacts().getCount());
+        Assertions.assertEquals(0, app.contacts().getCountContacts());
     }
 
 }

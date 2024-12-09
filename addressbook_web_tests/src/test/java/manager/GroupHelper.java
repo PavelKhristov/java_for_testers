@@ -62,7 +62,7 @@ public class GroupHelper extends BaseHelper{
 
 
 
-    public int getCount() {
+    public int getCountGroups() {
         openGroupPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }

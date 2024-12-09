@@ -70,7 +70,7 @@ public class ContactHelper extends BaseHelper {
         return manager.isElementPresent(By.name("selected[]"));
     }
 
-    public int getCount() {
+    public int getCountContacts() {
         openHomePage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }

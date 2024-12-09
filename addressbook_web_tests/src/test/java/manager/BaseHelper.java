@@ -17,4 +17,6 @@ public class BaseHelper {
     void type(By locator, String field) {
         manager.driver.findElement(locator).sendKeys(field);
     }
+
+
 }
