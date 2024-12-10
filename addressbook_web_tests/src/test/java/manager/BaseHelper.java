@@ -18,6 +18,9 @@ public class BaseHelper {
         manager.driver.findElement(locator).clear();
         manager.driver.findElement(locator).sendKeys(field);
     }
+    void chooseElementFromSelector(By locator, String field) {
+        manager.driver.findElement(locator).sendKeys(field);
+    }
 
 
 }

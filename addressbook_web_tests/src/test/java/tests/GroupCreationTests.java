@@ -15,7 +15,7 @@ public class GroupCreationTests extends TestBase {
         //Изначально задаем список со значениями "New P Group 1" и "New P Group 2"
         var result = new ArrayList<String>(List.of("New P Group 1", "New P Group 2"));
         //К списку добавляем 5 рандомных строк
-        for (int i = 1; i < 5; i++){
+        for (int i = 1; i < 5; i++) {
             result.add(randomString(i));
         }
         return result;
@@ -29,12 +29,12 @@ public class GroupCreationTests extends TestBase {
                 new GroupData().withName("OnlyWithName"),
                 new GroupData("New P Group 1", "", ""),
                 new GroupData("New P Group 2", "", "")*/
-                ));
+        ));
         //В данной конструкции мы перебираем все варианты для name/header/footer с пустыми и не пустыми значениями.
         // Это заменяет все выше описанные вручную указанные группы
-        for (var name : List.of("", "Not empty Group name")){
-            for (var header : List.of("", "Not empty Group header")){
-                for (var footer : List.of("", "Not empty Group footer")){
+        for (var name : List.of("", "Not empty Group name")) {
+            for (var header : List.of("", "Not empty Group header")) {
+                for (var footer : List.of("", "Not empty Group footer")) {
                     result.add(new GroupData()
                             .withName(name)
                             .withHeader(header)
@@ -42,7 +42,7 @@ public class GroupCreationTests extends TestBase {
                 }
             }
         }
-        for (int i = 1; i < 5; i++){
+        for (int i = 1; i < 5; i++) {
             result.add(new GroupData()
                     .withName(randomString(i))
                     .withHeader(randomString(i))
@@ -67,7 +67,7 @@ public class GroupCreationTests extends TestBase {
         };
         newGroups.sort(compareById);
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(newGroups.get(newGroups.size()-1).id()).withHeader("").withFooter(""));
+        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
     }

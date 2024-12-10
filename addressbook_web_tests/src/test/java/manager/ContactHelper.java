@@ -5,6 +5,7 @@ import model.GroupData;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
     public ContactHelper(ApplicationManager manager) {
@@ -41,22 +42,22 @@ public class ContactHelper extends BaseHelper {
         type(By.name("email2"), contact.e_mail2());
         type(By.name("email3"), contact.e_mail3());
         type(By.name("homepage"), contact.homePage());
-        type(By.name("bday"), contact.bDay());
-        type(By.name("bmonth"), contact.bMonth());
-        type(By.name("byear"), contact.bYear());
-        type(By.name("aday"), contact.aDay());
-        type(By.name("amonth"), contact.aMonth());
-        type(By.name("ayear"), contact.aYear());
-        type(By.name("new_group"), contact.newGroup());
+        chooseElementFromSelector(By.name("bday"), contact.bDay());
+        chooseElementFromSelector(By.name("bmonth"), contact.bMonth());
+        chooseElementFromSelector(By.name("byear"), contact.bYear());
+        chooseElementFromSelector(By.name("aday"), contact.aDay());
+        chooseElementFromSelector(By.name("amonth"), contact.aMonth());
+        chooseElementFromSelector(By.name("ayear"), contact.aYear());
+        chooseElementFromSelector(By.name("new_group"), contact.newGroup());
         сlick(By.name("submit"));
         сlick(By.linkText("home page"));
        // manager.driver.findElement(By.name("submit")).click();
         //manager.driver.findElement(By.linkText("home page")).click();
     }
 
-    public void deleteContact() {
+    public void deleteContact(ContactData contact) {
         openHomePage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContacts();
     }
 
@@ -64,8 +65,8 @@ public class ContactHelper extends BaseHelper {
         сlick(By.xpath("//input[@value=\'Delete\']"));
     }
 
-    private void selectContact() {
-        сlick(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        сlick(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     public boolean isContactPresent() {
@@ -91,7 +92,7 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public Object getList() {
+    public List<ContactData> getList() {
         openHomePage();
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.cssSelector("tr[name=\"entry\"]"));
