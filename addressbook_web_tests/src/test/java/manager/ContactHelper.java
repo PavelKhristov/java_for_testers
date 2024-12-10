@@ -93,15 +93,17 @@ public class ContactHelper extends BaseHelper {
 
     public Object getList() {
         openHomePage();
-        var groups = new ArrayList<ContactData>();
+        var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.cssSelector("tr[name=\"entry\"]"));
         for (var tr : trs){
-            var firstname = tr.findElements(By.xpath("td[3]"));
-            var lastname = tr.findElements(By.xpath("td[2]"));
+            var tdfirstname = tr.findElement(By.xpath("td[3]"));
+            var firstname = tdfirstname.getText();
+            var tdlastname = tr.findElement(By.xpath("td[2]"));
+            var lastname = tdlastname.getText();
             var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
-            groups.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
+            contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
         }
-        return groups;
+        return contacts;
     }
 }
