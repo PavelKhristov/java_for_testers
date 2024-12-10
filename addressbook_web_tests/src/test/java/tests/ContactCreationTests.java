@@ -14,11 +14,11 @@ public class ContactCreationTests extends TestBase {
         var result = new ArrayList<ContactData>();
         for (var firstname : List.of("", "Not empty Contact firstname")) {
             for (var lastname : List.of("", "Not empty Contact lastname")) {
-                result.add(new ContactData(firstname, "", lastname, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+                result.add(new ContactData("", firstname, "", lastname, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
             }
         }
         for (int i = 1; i < 4; i++) {
-            result.add(new ContactData(randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+            result.add(new ContactData("", randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), randomString(i), "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
         }
         return result;
     }

@@ -1,7 +1,10 @@
 package manager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
+
+import java.util.ArrayList;
 
 public class ContactHelper extends BaseHelper {
     public ContactHelper(ApplicationManager manager) {
@@ -86,5 +89,19 @@ public class ContactHelper extends BaseHelper {
         for (var checkbox : checkboxes){
             checkbox.click();
         }
+    }
+
+    public Object getList() {
+        openHomePage();
+        var groups = new ArrayList<ContactData>();
+        var trs = manager.driver.findElements(By.cssSelector("tr[name=\"entry\"]"));
+        for (var tr : trs){
+            var firstname = tr.findElements(By.xpath("td[3]"));
+            var lastname = tr.findElements(By.xpath("td[2]"));
+            var checkbox = tr.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            groups.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
+        }
+        return groups;
     }
 }
