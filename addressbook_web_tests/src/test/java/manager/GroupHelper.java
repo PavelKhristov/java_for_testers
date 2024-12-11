@@ -26,6 +26,23 @@ public class GroupHelper extends BaseHelper{
         returnToGroupsPage();
     }
 
+    public void removeGroup(GroupData group) {
+        openGroupPage();
+        selectGroup(group);
+        removeSelectedGroups();
+        returnToGroupsPage();
+    }
+
+    public void modifyGroup(GroupData group, GroupData modifiedGroup) {
+        openGroupPage();
+        selectGroup(group);
+        initGroupModification();
+        fillGroupForm(modifiedGroup);
+        submitGroupModification();
+        returnToGroupsPage();
+
+    }
+
     private void fillGroupForm(GroupData group) {
         сlick(By.name("group_name"));
         type(By.name("group_name"), group.name());
@@ -47,12 +64,6 @@ public class GroupHelper extends BaseHelper{
         сlick(By.name("new"));
     }
 
-    public void removeGroup(GroupData group) {
-        openGroupPage();
-        selectGroup(group);
-        removeSelectedGroups();
-        returnToGroupsPage();
-    }
     private void removeSelectedGroups() {
         сlick(By.name("delete"));
     }
@@ -90,16 +101,6 @@ public class GroupHelper extends BaseHelper{
             groups.add(new GroupData().withId(id).withName(name));
         }
         return groups;
-    }
-
-    public void modifyGroup(GroupData group, GroupData modifiedGroup) {
-        openGroupPage();
-        selectGroup(group);
-        initGroupModification();
-        fillGroupForm(modifiedGroup);
-        submitGroupModification();
-        returnToGroupsPage();
-
     }
 
     private void submitGroupModification() {

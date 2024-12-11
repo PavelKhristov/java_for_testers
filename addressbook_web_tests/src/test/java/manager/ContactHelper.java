@@ -26,6 +26,44 @@ public class ContactHelper extends BaseHelper {
 
     public void createContact(ContactData contact) {
         openContactCreationPage();
+        fillContactForm(contact);
+        submitContactCreation();
+        returnToHomePage();
+        // manager.driver.findElement(By.name("submit")).click();
+        //manager.driver.findElement(By.linkText("home page")).click();
+    }
+
+    public void deleteContact(ContactData contact) {
+        openHomePage();
+        selectContact(contact);
+        removeSelectedContacts();
+    }
+
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        openHomePage();
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToHomePage();
+    }
+
+    private void submitContactModification() {
+        сlick(By.name("update"));
+    }
+
+    private void initContactModification(ContactData contact) {
+        сlick(By.cssSelector(String.format("a[href=\"edit.php?id=%s\"]",  contact.id())));
+    }
+
+    private void returnToHomePage() {
+        сlick(By.linkText("home page"));
+    }
+
+    private void submitContactCreation() {
+        сlick(By.name("submit"));
+    }
+
+    private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstName());
         //manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstName())
         type(By.name("middlename"), contact.middleName());
@@ -48,17 +86,9 @@ public class ContactHelper extends BaseHelper {
         chooseElementFromSelector(By.name("aday"), contact.aDay());
         chooseElementFromSelector(By.name("amonth"), contact.aMonth());
         chooseElementFromSelector(By.name("ayear"), contact.aYear());
-        chooseElementFromSelector(By.name("new_group"), contact.newGroup());
-        сlick(By.name("submit"));
-        сlick(By.linkText("home page"));
-       // manager.driver.findElement(By.name("submit")).click();
-        //manager.driver.findElement(By.linkText("home page")).click();
-    }
+        if (contact.newGroup().isEmpty()){
+        } else {chooseElementFromSelector(By.name("new_group"), contact.newGroup());}
 
-    public void deleteContact(ContactData contact) {
-        openHomePage();
-        selectContact(contact);
-        removeSelectedContacts();
     }
 
     private void removeSelectedContacts() {
@@ -107,4 +137,6 @@ public class ContactHelper extends BaseHelper {
         }
         return contacts;
     }
+
+
 }
