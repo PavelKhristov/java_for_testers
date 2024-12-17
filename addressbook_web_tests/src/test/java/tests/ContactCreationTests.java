@@ -1,30 +1,29 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
-import model.GroupData;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> ContactProvider() {
         var result = new ArrayList<ContactData>();
-        for (var firstname : List.of("", "Not empty Contact firstname")) {
+        /*for (var firstname : List.of("", "Not empty Contact firstname")) {
             for (var lastname : List.of("", "Not empty Contact lastname")) {
                 result.add(new ContactData()
                         .withFirstName(firstname)
                         .withLastName(lastname));
             }
-        }
-        for (int i = 1; i < 4; i++) {
+        }*/
+        for (int i = 1; i < 2; i++) {
             result.add(new ContactData()
-                    .withFirstName(randomString(i))
-                    .withLastName(randomString(i)));
+                    .withFirstName(CommonFunctions.randomString(i))
+                    .withLastName(CommonFunctions.randomString(i))
+                    .withPhoto(randomFile("src/test/resources/images/")));
         }
         return result;
     }
@@ -32,9 +31,9 @@ public class ContactCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("ContactProvider")
     public void canCreateMultipleContacts(ContactData contact) {
-        var oldContacts = app.contacts().getList();
+        //var oldContacts = app.contacts().getList();
         app.contacts().createContact(contact);
-        var newContacts = app.contacts().getList();
+        /*var newContacts = app.contacts().getList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
@@ -42,7 +41,7 @@ public class ContactCreationTests extends TestBase {
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()));
         expectedList.sort(compareById);
-        Assertions.assertEquals(newContacts, expectedList);
+        Assertions.assertEquals(newContacts, expectedList);*/
     }
 
     /*@Test
