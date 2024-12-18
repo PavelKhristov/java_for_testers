@@ -69,7 +69,8 @@ public class ContactHelper extends BaseHelper {
         type(By.name("middlename"), contact.middleName());
         type(By.name("lastname"), contact.lastName());
         type(By.name("nickname"), contact.nickName());
-        attach(By.name("photo"), contact.photo());
+        if (contact.photo().isEmpty()){
+        } else {attach(By.name("photo"), contact.photo());}
         type(By.name("title"), contact.title());
         type(By.name("company"), contact.company());
         type(By.name("address"), contact.address());

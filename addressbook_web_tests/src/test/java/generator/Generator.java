@@ -4,11 +4,15 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
+import tests.TestBase;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -66,7 +70,7 @@ public class Generator {
             result.add(new ContactData()
                     .withFirstName(CommonFunctions.randomString(i))
                     .withLastName(CommonFunctions.randomString(i))
-                    //.withPhoto(TestBase.randomFile("src/test/resources/images/"))
+                    .withPhoto(TestBase.randomFile("src/test/resources/images/"))
             );
         }
         return result;
@@ -76,10 +80,25 @@ public class Generator {
         if ("json".equals(format)) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            var json = mapper.writeValueAsString(data);
+//          Ещё один вариант сохранения при помощи библиотеки jackson
+//          mapper.writeValue(new File(output), data);
+            try (var writer = new FileWriter(output)) {
+                writer.write(json);
+            }
+        } if ("yaml".equals(format)) {
+            var mapper = new YAMLMapper();
+            mapper.writeValue(new File(output), data);
+        } if ("xml".equals(format)) {
+            var mapper = new XmlMapper();
             mapper.writeValue(new File(output), data);
         } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
-
     }
+
+
+
+
+
 }
