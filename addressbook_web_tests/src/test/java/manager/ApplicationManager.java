@@ -21,36 +21,47 @@ public class ApplicationManager {
     public void init(String browser, Properties properties) {
         this.properties = properties;
         if (driver == null) {
-            if ("firefox".equals(browser)){
+            if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
             } else if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
             } else {
                 throw new IllegalArgumentException(String.format("Неизвестный браузер %s", browser));
             }
+            var target = System.getProperty("target", "local.properties");
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-            driver.get(properties.getProperty("web.baseURL"));
-            driver.manage().window().setSize(new Dimension(1238, 993));
-            session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
+            if ("local.properties".equals(target)) {
+                driver.get(properties.getProperty("web.baseURL"));
+                driver.manage().window().setSize(new Dimension(1238, 993));
+                session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
+            } else if ("second.properties".equals(target)) {
+                driver.get(properties.getProperty("web.baseURL"));
+                driver.manage().window().setSize(new Dimension(1238, 993));
+                session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
+            } else {
+                throw new IllegalArgumentException(String.format("Неизвестный файл конфигурации %s", target));
+            }
+
+
         }
     }
 
-    public LoginHelper session () {
-        if (session == null){
+    public LoginHelper session() {
+        if (session == null) {
             session = new LoginHelper(this);
         }
         return session;
     }
 
-    public GroupHelper groups () {
-        if (groups == null){
+    public GroupHelper groups() {
+        if (groups == null) {
             groups = new GroupHelper(this);
         }
         return groups;
     }
 
-    public ContactHelper contacts () {
-        if (contacts == null){
+    public ContactHelper contacts() {
+        if (contacts == null) {
             contacts = new ContactHelper(this);
         }
         return contacts;
