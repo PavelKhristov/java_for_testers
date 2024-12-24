@@ -7,6 +7,7 @@ import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -42,11 +43,17 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> ContactProviderFromGeneratedFile() throws IOException {
         var result = new ArrayList<ContactData>();
-
         var mapper = new XmlMapper();
         var value = mapper.readValue(new File("contacts.xml"), new TypeReference<List<ContactData>>(){});
         result.addAll(value);
         return result;
+    }
+
+    public static List<ContactData> singleRandomContact() {
+        return List.of(new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/images/")));
     }
 
     @ParameterizedTest
@@ -70,6 +77,31 @@ public class ContactCreationTests extends TestBase {
     public void canCreateMultipleContactsFromFile(ContactData contact) {
         app.contacts().createContact(contact);
     }
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    public void canCreateContactDB(ContactData contact) {
+        app.contacts().createContact(contact);
+    }
+
+    @Test
+    void canCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/images/"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "New group", "New header", "New footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().createContact(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+    }
+
+
 
 //    @Test
 //    public void canCreateContact() {

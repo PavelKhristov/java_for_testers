@@ -30,6 +30,22 @@ public class GroupDeletionTests extends TestBase {
     }
 
     @Test
+    public void canDeleteGroupViaDB() {
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "New group", "New header", "New footer"));
+        }
+        //Падает с ошибкой если есть deprecated в GroupRecord
+        var oldGroups = app.hbm().getGroupList();
+        var rnd = new Random();
+        var index = rnd.nextInt(oldGroups.size());
+        app.groups().removeGroup(oldGroups.get(index));
+        var newGroups = app.hbm().getGroupList();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.remove(index);
+        Assertions.assertEquals(newGroups, expectedList);
+    }
+
+    @Test
     void canRemoveAllGroupsAtOnce() {
         if (app.groups().getCountGroups() == 0) {
             app.groups().createGroup(new GroupData("", "New group", "New header", "New footer"));

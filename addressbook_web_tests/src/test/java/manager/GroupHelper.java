@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupHelper extends BaseHelper{
-    public GroupHelper (ApplicationManager manager){
-        super(manager);
-    }
+    public GroupHelper (ApplicationManager manager){super(manager);}
 
 
     public void openGroupPage() {

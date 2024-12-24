@@ -26,6 +26,11 @@ public record ContactData(String id, String firstName, String middleName, String
                 this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
     }
 
+    public ContactData withAddress(String address) {
+        return new ContactData(this.id, this.firstName, this.middleName, this.lastName, this.nickName, this.photo, this.title, this.company, address, this.homePhone, this.mobilephone, this.workPhone,
+                this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
+    }
+
     public ContactData withFirstNameAndLastName(String firstname, String lastName) {
         return new ContactData(this.id, firstname, this.middleName, lastName, this.nickName, this.photo, this.title, this.company, this.address, this.homePhone, this.mobilephone, this.workPhone,
                 this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
