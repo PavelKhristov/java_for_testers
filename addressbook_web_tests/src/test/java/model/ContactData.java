@@ -20,6 +20,10 @@ public record ContactData(String id, String firstName, String middleName, String
         return new ContactData(this.id, this.firstName, this.middleName, lastname, this.nickName, this.photo, this.title, this.company, this.address, this.homePhone, this.mobilephone, this.workPhone,
                 this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
     }
+    public ContactData withMiddleName(String middlename) {
+        return new ContactData(this.id, this.firstName, middleName, this.lastName, this.nickName, this.photo, this.title, this.company, this.address, this.homePhone, this.mobilephone, this.workPhone,
+                this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
+    }
 
     public ContactData withPhoto(String photo) {
         return new ContactData(this.id, this.firstName, this.middleName, this.lastName, this.nickName, photo, this.title, this.company, this.address, this.homePhone, this.mobilephone, this.workPhone,
@@ -28,6 +32,11 @@ public record ContactData(String id, String firstName, String middleName, String
 
     public ContactData withAddress(String address) {
         return new ContactData(this.id, this.firstName, this.middleName, this.lastName, this.nickName, this.photo, this.title, this.company, address, this.homePhone, this.mobilephone, this.workPhone,
+                this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
+    }
+
+    public ContactData withNickName(String nickname) {
+        return new ContactData(this.id, this.firstName, this.middleName, this.lastName, nickname, this.photo, this.title, this.company, this.address, this.homePhone, this.mobilephone, this.workPhone,
                 this.Fax, this.e_mail, this.e_mail2, this.e_mail3, this.homePage, this.bDay, this.bMonth, this.bYear, this.aDay, this.aMonth, this.aYear, this.newGroup);
     }
 

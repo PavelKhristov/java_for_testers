@@ -14,9 +14,9 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void openHomePage() {
-        if (!manager.isElementPresent(By.name("searchstring"))){
+//        if (!manager.isElementPresent(By.name("searchstring"))){
             сlick(By.linkText("home"));
-        }
+//        }
     }
 
     public void openContactCreationPage() {
