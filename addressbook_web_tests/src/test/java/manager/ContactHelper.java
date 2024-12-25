@@ -34,7 +34,7 @@ public class ContactHelper extends BaseHelper {
         //manager.driver.findElement(By.linkText("home page")).click();
     }
 
-    public void createContact(ContactData contact, GroupData group) {
+    public void createContactWithGroup(ContactData contact, GroupData group) {
         openContactCreationPage();
         fillContactForm(contact);
         selectGroup(group);
@@ -42,8 +42,40 @@ public class ContactHelper extends BaseHelper {
         returnToHomePage();
     }
 
+    public void addGroupToContact(ContactData contact, GroupData group) {
+        openHomePage();
+        selectContact(contact);
+        chooseGroupForContactInHomePage(group);
+        submitGropAddition();
+        returnToHomePageAfterGropChanging(group);
+    }
+
+    public void removeGroupFromContact(ContactData contact, GroupData group) {
+        openHomePage();
+        chooseGroupInHomePage(group);
+        selectContact(contact);
+        removeContactsGroup();
+        returnToHomePageAfterGropChanging(group);
+    }
+
     private void selectGroup(GroupData group) {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
+    }
+
+    private void chooseGroupForContactInHomePage(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void chooseGroupInHomePage(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void submitGropAddition() {
+        сlick(By.name("add"));
+    }
+
+    private void removeContactsGroup() {
+        сlick(By.name("remove"));
     }
 
     public void deleteContact(ContactData contact) {
@@ -62,6 +94,11 @@ public class ContactHelper extends BaseHelper {
 
     private void submitContactModification() {
         сlick(By.name("update"));
+    }
+
+    private void returnToHomePageAfterGropChanging(GroupData group) {
+        сlick(By.linkText(String.format("group page \"%s\"", group.name())));
+//        сlick(By.cssSelector(String.format("a[href=\"edit.php?id=%s\"]",  group.id())));
     }
 
     private void initContactModification(ContactData contact) {

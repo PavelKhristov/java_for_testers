@@ -55,4 +55,30 @@ public class ContactDeletionTests extends TestBase {
         Assertions.assertEquals(0, app.contacts().getCountContacts());
     }
 
+
+    @Test
+    void canRemoveGroupFromContact() {
+        if (app.hbm().getCountContacts() == 0) {
+            app.hbm().createContact(new ContactData()
+                    .withLastName(CommonFunctions.randomString(10))
+                    .withFirstName(CommonFunctions.randomString(10))
+                    .withAddress(CommonFunctions.randomString(10))
+                    .withNickName(CommonFunctions.randomString(10)));
+            var group = app.hbm().getGroupList().get(0);
+            var oldContacts = app.hbm().getContactList();
+            var rnd = new Random();
+            var index = rnd.nextInt(oldContacts.size());
+            app.contacts().addGroupToContact(oldContacts.get(index), group);
+        }
+        var group = app.hbm().getGroupList().get(0);
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        var rnd = new Random();
+        var index = rnd.nextInt(oldRelated.size());
+        app.contacts().removeGroupFromContact(oldRelated.get(index), group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        var expectedRelated = new ArrayList<>(oldRelated);
+        expectedRelated.remove(index);
+        Assertions.assertEquals(newRelated, expectedRelated);
+    }
+
 }
