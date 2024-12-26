@@ -66,13 +66,13 @@ public class ContactModificationTests extends TestBase {
         var index = rnd.nextInt(oldContacts.size());
         app.contacts().addGroupToContact(oldContacts.get(index), group);
         var newRelated = app.hbm().getContactsInGroup(group);
-        var maxId = newRelated.get(newRelated.size() - 1).id();
+//        var maxId = newRelated.get(newRelated.size() - 1).id();
         var expectedRelated = new ArrayList<>(oldRelated);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newRelated.sort(compareById);
-        expectedRelated.add(contact.withId(maxId));
+        expectedRelated.add(oldContacts.get(index));
         expectedRelated.sort(compareById);
         Assertions.assertEquals(newRelated, expectedRelated);
     }
