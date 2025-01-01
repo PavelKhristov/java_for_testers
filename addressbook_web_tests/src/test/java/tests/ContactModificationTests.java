@@ -52,7 +52,17 @@ public class ContactModificationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("emptyContact")
     void canAddGroupToContact(ContactData contact) {
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "New group", "New header", "New footer"));
+        }
         if (app.hbm().getCountContacts() == 0) {
+            app.hbm().createContact(new ContactData()
+                    .withLastName(CommonFunctions.randomString(10))
+                    .withFirstName(CommonFunctions.randomString(10))
+                    .withAddress(CommonFunctions.randomString(10))
+                    .withNickName(CommonFunctions.randomString(10)));
+        }
+        if (app.jdbc().isExistContactWithoutGroup() == 0){
             app.hbm().createContact(new ContactData()
                     .withLastName(CommonFunctions.randomString(10))
                     .withFirstName(CommonFunctions.randomString(10))
@@ -61,12 +71,11 @@ public class ContactModificationTests extends TestBase {
         }
         var group = app.hbm().getGroupList().get(0);
         var oldRelated = app.hbm().getContactsInGroup(group);
-        var oldContacts = app.hbm().getContactList();
+        var oldContacts = app.jdbc().getContactListWithoutGroup();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         app.contacts().addGroupToContact(oldContacts.get(index), group);
         var newRelated = app.hbm().getContactsInGroup(group);
-//        var maxId = newRelated.get(newRelated.size() - 1).id();
         var expectedRelated = new ArrayList<>(oldRelated);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));

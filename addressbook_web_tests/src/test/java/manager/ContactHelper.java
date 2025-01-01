@@ -44,6 +44,7 @@ public class ContactHelper extends BaseHelper {
 
     public void addGroupToContact(ContactData contact, GroupData group) {
         openHomePage();
+        chooseNoneGroupInHomePage();
         selectContact(contact);
         chooseGroupForContactInHomePage(group);
         submitGropAddition();
@@ -68,6 +69,10 @@ public class ContactHelper extends BaseHelper {
 
     private void chooseGroupInHomePage(GroupData group) {
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void chooseNoneGroupInHomePage() {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue("[none]");
     }
 
     private void submitGropAddition() {
