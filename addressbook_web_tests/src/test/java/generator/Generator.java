@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Generator {
     @Parameter(names={"--type", "-t"})
@@ -53,27 +56,28 @@ public class Generator {
         }
     }
 
+    private Object generateData (Supplier<Object> dataSupplier) {
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
+        //Строка выше является аналогом цикла ниже, но написана в функциональном стиле
+//        var result = new ArrayList<Object>();
+//        for (int i = 0; i < count; i++){
+//            result.add(dataSupplier.get());
+//        }
+//        return result;
+    }
+
     private Object generateGroups() {
-        var result = new ArrayList<GroupData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i))
-                    .withHeader(CommonFunctions.randomString(i))
-                    .withFooter(CommonFunctions.randomString(i)));
-        }
-        return result;
+        return generateData(() -> new GroupData()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10)));
     }
 
     private Object generateContacts() {
-        var result = new ArrayList<ContactData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new ContactData()
-                    .withFirstName(CommonFunctions.randomString(i))
-                    .withLastName(CommonFunctions.randomString(i))
-                    .withPhoto(TestBase.randomFile("src/test/resources/images/"))
-            );
-        }
-        return result;
+        return generateData(() -> new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withPhoto(TestBase.randomFile("src/test/resources/images/")));
     }
 
     private void save(Object data) throws IOException {
