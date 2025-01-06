@@ -44,11 +44,14 @@ public class ContactInfoTests extends TestBase {
         var rnd = new Random();
         var index = rnd.nextInt(contacts.size());
         var contact = contacts.get(index);
-        var expected = Stream.of(contact.address(), contact.email(), contact.email2(), contact.email3(), contact.homePhone(), contact.mobilePhone(), contact.workPhone(), contact.secondaryPhone())
-                .filter(s -> s != null && ! "".equals(s))
-                .collect(Collectors.joining("\n"));
-        var contactInformation = app.contacts().getPhonesAddressessAndEmails(contact);
-        Assertions.assertEquals(expected, contactInformation);
+        //Ниже закомменчена попытка достать информацию из БД
+//        var expected = Stream.of(contact.address(), contact.email(), contact.email2(), contact.email3(), contact.homePhone(), contact.mobilePhone(), contact.workPhone(), contact.secondaryPhone())
+//                .filter(s -> s != null && ! "".equals(s))
+//                .collect(Collectors.joining("\n"));
+        var contactInformationFromHomePage = app.contacts().getContactInformationFromHomePage(contact);
+        app.contacts().openContactPage(contact);
+        var expected = app.contacts().getInformationFromContactPage();
+        Assertions.assertEquals(expected, contactInformationFromHomePage);
     }
 
 

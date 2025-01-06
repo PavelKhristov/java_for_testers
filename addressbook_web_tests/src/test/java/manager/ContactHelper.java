@@ -175,6 +175,11 @@ public class ContactHelper extends BaseHelper {
         removeSelectedContacts();
     }
 
+    public void openContactPage(ContactData contact) {
+        openHomePage();
+        initContactModification(contact);
+    }
+
     private void selectAllContacts() {
         var checkboxes = manager.driver.findElements(By.name("selected[]"));
         for (var checkbox : checkboxes){
@@ -204,7 +209,7 @@ public class ContactHelper extends BaseHelper {
                 String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();    //  "/.." означает подъем на один уровень верх,
     }
 
-    public String getPhonesAddressessAndEmails(ContactData contact) {
+    public String getContactInformationFromHomePage(ContactData contact) {
         var address = manager.driver.findElement(By.xpath(
                 String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
         var emails = manager.driver.findElement(By.xpath(
@@ -212,6 +217,18 @@ public class ContactHelper extends BaseHelper {
         var phones = manager.driver.findElement(By.xpath(
                 String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
         var result = address + "\n" + emails + "\n" + phones;
+        return result;
+    }
+
+    public String getInformationFromContactPage() {
+        var address = manager.driver.findElement(By.name("address")).getText();
+        var home = manager.driver.findElement(By.name("home")).getAttribute("value");
+        var mobile = manager.driver.findElement(By.name("mobile")).getAttribute("value");
+        var work = manager.driver.findElement(By.name("work")).getAttribute("value");
+        var email = manager.driver.findElement(By.name("email")).getAttribute("value");
+        var email2 = manager.driver.findElement(By.name("email2")).getAttribute("value");
+        var email3 = manager.driver.findElement(By.name("email3")).getAttribute("value");
+        var result = address + "\n" + email + "\n" + email2 + "\n" + email3 + "\n" + home + "\n" + mobile + "\n" + work;
         return result;
     }
 
