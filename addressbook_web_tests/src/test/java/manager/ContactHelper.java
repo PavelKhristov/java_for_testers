@@ -3,10 +3,13 @@ package manager;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactHelper extends BaseHelper {
     public ContactHelper(ApplicationManager manager) {
@@ -130,12 +133,12 @@ public class ContactHelper extends BaseHelper {
         type(By.name("company"), contact.company());
         type(By.name("address"), contact.address());
         type(By.name("home"), contact.homePhone());
-        type(By.name("mobile"), contact.mobilephone());
+        type(By.name("mobile"), contact.mobilePhone());
         type(By.name("work"), contact.workPhone());
         type(By.name("fax"), contact.Fax());
-        type(By.name("email"), contact.e_mail());
-        type(By.name("email2"), contact.e_mail2());
-        type(By.name("email3"), contact.e_mail3());
+        type(By.name("email"), contact.email());
+        type(By.name("email2"), contact.email2());
+        type(By.name("email3"), contact.email3());
         type(By.name("homepage"), contact.homePage());
         chooseElementFromSelector(By.name("bday"), contact.bDay());
         chooseElementFromSelector(By.name("bmonth"), contact.bMonth());
@@ -193,6 +196,34 @@ public class ContactHelper extends BaseHelper {
             contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
         }
         return contacts;
+    }
+
+
+    public String getPhones(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();    //  "/.." означает подъем на один уровень верх,
+    }
+
+    public String getPhonesAddressessAndEmails(ContactData contact) {
+        var address = manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
+        var emails = manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[5]", contact.id()))).getText();
+        var phones = manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
+        var result = address + "\n" + emails + "\n" + phones;
+        return result;
+    }
+
+    public Map<String, String> getPhones() {
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
+            result.put(id, phones);
+        }
+        return result;
     }
 
 

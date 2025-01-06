@@ -28,4 +28,23 @@ public class CommonFunctions {
                 .collect(Collectors.joining());
         return result;
     }
+
+        public static String randomPhoneNumber(){
+        var rnd = new Random();
+        var result = "+7";
+        for (int i = 0; i < 10; i++){
+            result = result + (rnd.nextInt(9));
+        }
+        return result;
+    }
+
+    public static String randomEmail(int n){
+        var rnd = new Random();
+        var result = "";
+        for (int i = 0; i < n; i++){
+            result = result + (char)('a' + rnd.nextInt(26));
+        }
+        result = result + "@mail.ru";
+        return result;
+    }
 }
