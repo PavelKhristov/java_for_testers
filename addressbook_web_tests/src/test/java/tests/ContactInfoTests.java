@@ -48,10 +48,16 @@ public class ContactInfoTests extends TestBase {
 //        var expected = Stream.of(contact.address(), contact.email(), contact.email2(), contact.email3(), contact.homePhone(), contact.mobilePhone(), contact.workPhone(), contact.secondaryPhone())
 //                .filter(s -> s != null && ! "".equals(s))
 //                .collect(Collectors.joining("\n"));
-        var contactInformationFromHomePage = app.contacts().getContactInformationFromHomePage(contact);
+        var phones = app.contacts().getPhones(contact);
+        var address = app.contacts().getAddress(contact);
+        var emails = app.contacts().getEmails(contact);
         app.contacts().openContactPage(contact);
-        var expected = app.contacts().getInformationFromContactPage();
-        Assertions.assertEquals(expected, contactInformationFromHomePage);
+        var expectedPhones = app.contacts().getPhonesFromContactPage();
+        var expectedAddress = app.contacts().getAddressFromContactPage();
+        var expectedEmails = app.contacts().getEmailsFromContactPage();
+        Assertions.assertEquals(expectedPhones, phones);
+        Assertions.assertEquals(expectedAddress, address);
+        Assertions.assertEquals(expectedEmails, emails);
     }
 
 

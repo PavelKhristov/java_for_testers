@@ -203,12 +203,55 @@ public class ContactHelper extends BaseHelper {
         return contacts;
     }
 
+    public Map<String, String> getPhones() {
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
+            result.put(id, phones);
+        }
+        return result;
+    }
 
     public String getPhones(ContactData contact) {
         return manager.driver.findElement(By.xpath(
                 String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();    //  "/.." означает подъем на один уровень верх,
     }
 
+    public String getAddress(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
+    }
+
+    public String getEmails(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[5]", contact.id()))).getText();
+    }
+
+    public String getPhonesFromContactPage() {
+        var home = manager.driver.findElement(By.name("home")).getAttribute("value");
+        var mobile = manager.driver.findElement(By.name("mobile")).getAttribute("value");
+        var work = manager.driver.findElement(By.name("work")).getAttribute("value");
+        var result = home + "\n" + mobile + "\n" + work;
+        return result;
+    }
+
+    public String getAddressFromContactPage() {
+        var address = manager.driver.findElement(By.name("address")).getText();
+        var result = address;
+        return result;
+    }
+
+    public String getEmailsFromContactPage() {
+        var email = manager.driver.findElement(By.name("email")).getAttribute("value");
+        var email2 = manager.driver.findElement(By.name("email2")).getAttribute("value");
+        var email3 = manager.driver.findElement(By.name("email3")).getAttribute("value");
+        var result = email + "\n" + email2 + "\n" + email3;
+        return result;
+    }
+
+    //Попытка вытащить всю информацию о контакте разом с главной страницы
     public String getContactInformationFromHomePage(ContactData contact) {
         var address = manager.driver.findElement(By.xpath(
                 String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
@@ -220,6 +263,7 @@ public class ContactHelper extends BaseHelper {
         return result;
     }
 
+    //Попытка вытащить всю информацию о контакте разом со страницы контакта
     public String getInformationFromContactPage() {
         var address = manager.driver.findElement(By.name("address")).getText();
         var home = manager.driver.findElement(By.name("home")).getAttribute("value");
@@ -232,16 +276,7 @@ public class ContactHelper extends BaseHelper {
         return result;
     }
 
-    public Map<String, String> getPhones() {
-        var result = new HashMap<String, String>();
-        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
-        for (WebElement row : rows) {
-            var id = row.findElement(By.tagName("input")).getAttribute("id");
-            var phones = row.findElements(By.tagName("td")).get(5).getText();
-            result.put(id, phones);
-        }
-        return result;
-    }
+
 
 
 }
